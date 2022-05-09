@@ -42,8 +42,8 @@ class Migration(migrations.Migration):
             name='Issue',
             fields=[
                 ('issueID', models.AutoField(primary_key=True, serialize=False)),
-                ('assignee', models.PositiveIntegerField()),
-                ('reporter', models.PositiveIntegerField()),
+                ('assigneeID', models.PositiveIntegerField()),
+                ('reporterID', models.PositiveIntegerField()),
                 ('issueName', models.CharField(max_length=20)),
                 ('issueStatus', models.PositiveIntegerField()),
                 ('issueType', models.IntegerField()),
@@ -52,6 +52,21 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'IssueTable',
+            },
+        ),
+        migrations.CreateModel(
+            name='Comment',
+            fields=[
+                ('commentID', models.AutoField(primary_key=True, serialize=False)),
+                ('issue', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='LY3000.issue')),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='LY3000.user')),
+                ('commentText', models.TextField()),
+                ('createdOn', models.DateTimeField()),
+                ('updatedOn', models.DateTimeField()),
+                
+            ],
+            options={
+                'db_table': 'CommentTable',
             },
         ),
     ]
