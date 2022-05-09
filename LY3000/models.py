@@ -48,3 +48,16 @@ class Issue(models.Model):
 
     class Meta:
         db_table = "IssueTable"
+
+
+class Comment(models.Model):
+    commentID = models.AutoField(primary_key = True)
+    issue = models.ForeignKey(Issue, on_delete= models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    commentText = models.TextField()
+    createdOn = models.DateTimeField()
+    updatedOn = models.DateTimeField()
+
+    class Meta:
+        db_table = "CommentTable"
+
