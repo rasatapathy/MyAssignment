@@ -6,6 +6,9 @@ urlpatterns = [
     path("getProject/", views.getProjectData),
     path("addProject/", views.addProjectData),
     path("getIssue/", views.getIssueData),
-    path("addIssue", views.addIssueData),
+    path("addIssue/", views.addIssueData),
+    path("getComment/", views.getCommentData),
+    path("addComment/", views.addCommentData),
+    
 
 ]
