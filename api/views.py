@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from LY3000.models import Project, User, Issue
-from .serializers import UserSerializer, ProjectSerializer, IssueSerializer
+from LY3000.models import Project, User, Issue, Comment
+from .serializers import UserSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
+
 
 # ----------------------------USER--------------------------------------------------
 
@@ -44,6 +45,21 @@ def getIssueData(request):
 @api_view(['POST'])
 def addIssueData(request):
     serializer = IssueSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+# -----------------------Comment-------------------------------------------------------
+
+@api_view(['GET'])
+def getCommentData(request):
+    comments = Comment.objects.all()
+    serializer = CommentSerializer(comments, many = True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def addCommentData(request):
+    serializer = CommentSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
